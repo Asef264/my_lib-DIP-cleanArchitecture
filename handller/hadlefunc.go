@@ -13,6 +13,7 @@ import (
 
 type HandlerInterface interface {
 	AddNewBook(c *gin.Context)
+	DeleteBook(c *gin.Context)
 }
 
 type book struct {
@@ -47,28 +48,19 @@ func (b *book) AddNewBook(c *gin.Context) {
 	c.JSON(http.StatusOK, newbook)
 }
 
-/*book.Id = uuid.New().String()
-	book.AddTime = time.Now()
-
-	_, err = repository.DBP.Exec(constants.ADD_BOOK, book.Name, book.Id, book.Category, book.Author, book.Translator, book.Owner, book.AddTime)
+func (b *book) DeleteBook(c *gin.Context) {
+	log.Println("deleting a record")
+	name := c.Param("name")
+	err := b.logic.DeleteBook(c, name)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "the book didnt add")
+		log.Println(errorhandler.LayerConnectionError + "in handler")
+		c.JSON(http.StatusInternalServerError, "error on sending data to logic")
 		return
 	}
-
-	_, err = repository.DBP.Exec(constants.ADD_BOOK_CATEGORY, book.Category, book.Name, book.Author, book.Translator)
-	if err != nil {
-		log.Println("error on saving the data in category table its been saved in book table")
-		c.JSON(http.StatusInternalServerError, "the book didnot save correctlly")
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":  http.StatusOK,
-		"message": " the book successfully added",
-		"data":    book,
-	})
+	c.JSON(http.StatusOK, "deleted successfully")
 }
+
+/*
 
 func DeleteBook(c *gin.Context) {
 	log.Println("deleting a book")
