@@ -13,6 +13,7 @@ import (
 
 type UsecaseInterface interface {
 	AddBook(ctx context.Context, bookDate models.Book) (newbook *models.Book, err error)
+	DeleteBook(ctx context.Context, name string) error
 }
 
 type book struct {
@@ -43,4 +44,13 @@ func (b *book) AddBook(ctx context.Context, bookData models.Book) (newbook *mode
 		return nil, err
 	}
 	return &bookData, nil
+}
+
+func (b *book) DeleteBook(ctx context.Context, name string) error {
+	err := b.repo.DeleteBook(ctx, name)
+	if err != nil {
+		log.Println(errorhandler.LayerConnectionError + "usecase")
+		return err
+	}
+	return nil
 }
