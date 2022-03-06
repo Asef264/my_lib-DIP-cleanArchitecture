@@ -4,11 +4,13 @@ import (
 	"context"
 	"log"
 	"my_lib/constants"
+	"my_lib/errorhandler"
 	"my_lib/models"
 )
 
 type RepoInterface interface {
 	AddBook(ctx context.Context, bookData models.Book) error
+	DeleteBook(ctx context.Context, name string) error
 }
 
 type book struct{}
@@ -24,5 +26,14 @@ func (b *book) AddBook(ctx context.Context, bookData models.Book) error {
 		return err
 	}
 	log.Println("the book successfully added")
+	return nil
+}
+
+func (b *book) DeleteBook(ctx context.Context, name string) error {
+	_, err := DBP.Exec(constants.DELETE_BOOK, name)
+	if err != nil {
+		log.Println(errorhandler.LayerConnectionError + "repository")
+		return err
+	}
 	return nil
 }
