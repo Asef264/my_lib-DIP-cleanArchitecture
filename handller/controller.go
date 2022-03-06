@@ -12,8 +12,8 @@ func Run() {
 	bookHandler := NewHandlerInterface(usecase.NewUsecaseInterface(repository.NewRepoInterface()))
 	Router.POST("/", Homepage)
 	Router.POST("/addbook", bookHandler.AddNewBook)
-	/*Router.DELETE("/book/del/:name", DeleteBook)
-	Router.GET("/book/getbook/:name", GetOneBook)
+	Router.DELETE("/book/del/:name", bookHandler.DeleteBook)
+	/*Router.GET("/book/getbook/:name", GetOneBook)
 	Router.GET("/book/getoncat/:category", GetBookOnCategory)
 	Router.GET("/getall", GetAllBooks)
 	*/
