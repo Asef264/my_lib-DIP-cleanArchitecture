@@ -1,0 +1,95 @@
+
+/*
+
+func DeleteBook(c *gin.Context) {
+	log.Println("deleting a book")
+	name := c.Param("name")
+	_, err := repository.DBP.Exec(constants.DELETE_BOOK, name)
+	if err != nil {
+		log.Println(err.Error())
+		c.JSON(http.StatusInternalServerError, "the book didnt delete")
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "the book deleted",
+	})
+}
+
+func GetOneBook(c *gin.Context) {
+	log.Println("get one book")
+	var book models.Book
+	name := c.Param("name")
+	rows, err := repository.DBP.Query(constants.GET_ONE_BOOK, name)
+	log.Println(rows)
+	for rows.Next() {
+		err = rows.Scan(&book.Name, &book.Id, &book.Category, &book.Author, &book.Translator, &book.Owner, &book.AddTime)
+		if err != nil {
+			log.Println(err.Error())
+			c.JSON(http.StatusInternalServerError, "error in scanning")
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "this is the book",
+		"data":    book,
+	})
+}
+
+func GetBookOnCategory(c *gin.Context) {
+	log.Println("get book on its category")
+	var book models.Book
+	category := c.Param("category")
+	rows, err := repository.DBP.Query(constants.GET_BOOK_ON_CATEGORY, category)
+	if err != nil {
+		log.Println("error on reading query")
+		return
+	}
+	for rows.Next() {
+		err := rows.Scan(&book.Category, &book.Name, &book.Author, &book.Translator)
+		if err != nil {
+			log.Println(err.Error())
+			c.JSON(http.StatusInternalServerError, "error in scanning ")
+			return
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"data":   book,
+	})
+}
+
+func GetAllBooks(c *gin.Context) {
+	log.Println("geting all records")
+	var book models.Book
+	var books []models.Book
+	rows, err := repository.DBP.Query(constants.GET_ALL_BOOKS)
+	if err != nil {
+		log.Println(err.Error())
+		c.JSON(http.StatusInternalServerError, "the books are disaccessable")
+		return
+	}
+	for rows.Next() {
+		err = rows.Scan(&book.Name)
+		if err != nil {
+			log.Println(err.Error())
+			c.JSON(http.StatusInternalServerError, "error on scanning the records")
+			return
+		}
+		books = append(books, book)
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"stauts": http.StatusOK,
+		"data":   books,
+	})
+}
+*/
+
+
+
+/*Router.GET("/book/getbook/:name", GetOneBook)
+	Router.GET("/book/getoncat/:category", GetBookOnCategory)
+	Router.GET("/getall", GetAllBooks)
+	*/
