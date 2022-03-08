@@ -9,6 +9,9 @@ import (
 	_ "github.com/lib/pq"
 )
 
+//using postgrsql for db
+//the main configuration of the database
+// you should change the password and other different details in your project
 const (
 	user     = "postgres"
 	password = "docker"
